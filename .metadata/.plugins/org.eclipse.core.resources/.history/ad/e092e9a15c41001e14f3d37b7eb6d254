@@ -1,0 +1,15 @@
+
+public class P4 {
+
+	public static void main(String[] args) {
+		{
+		int aaa=10;
+		aaa=20;
+		}
+		int aaa=30;
+
+		System.out.println(aaa);
+
+	}
+
+}
