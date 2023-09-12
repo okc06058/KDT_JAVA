@@ -14,7 +14,7 @@ public class B_UniqueNicknames {
 			t[i] = sc.next();
 		}
 		//sc.close();
-		//ai는 사람i의 성 또는 이름과 일치한다. 즉, ai = si 그리고/또는 ai = ti를 만족시킨다.
+		//ai는 사람i의 성 또는 이름과 일치한다. 즉, eai = si 그리고/또는 ai = ti를 만족시킨다.
 		//ai는 다른 사람의 성 및 이름과 일치하지 않는다. 즉, 1≤j≤N 및i=j를 만족시키는 모든 정수 j에 대해 ai=sj 그리고/또는 ai=tj을 만족시킨다
 		//3
 		//tanaka taro

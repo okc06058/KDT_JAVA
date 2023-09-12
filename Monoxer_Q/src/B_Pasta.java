@@ -38,9 +38,9 @@ public class B_Pasta {
 		int check=0;
 		for(int i = 0; i<m; i++) {
 			for(int j = 0; j<n; j++) {
-				if (aList[j]!=-1 && bList[i]!=-1 && bList[i]==aList[j]) {
+				if (aList[j]!=-1 && bList[i]==aList[j]) {
 					check++;
-					bList[i]=aList[j]=-1;
+					aList[j]=-1;
 					break;
 				}
 				
