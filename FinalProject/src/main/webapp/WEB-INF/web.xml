@@ -29,9 +29,7 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
-
-	<!-- ja : 필수 추가 -->
+	<!-- ja: 필터 추가 이거 안하면 한글 깨짐 -->
 	<!-- 필터 등록... -->
 	<filter>
 		<filter-name>characterEncodingFilter</filter-name>
