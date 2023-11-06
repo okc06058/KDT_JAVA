@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ja.finalproject.board.mapper.BoardSqlMapper">
+
+	<select id="createArticlePk" resultType="int">
+		SELECT FP_FREEBOARD_ARTICLE_SEQ.nextval FROM Dual
+	</select>
+	
+
+
+	<insert id="insert">
+		INSERT INTO FP_FREEBOARD_ARTICLE VALUES(
+			#{id},
+			#{user_id},
+			#{title},
+			#{content},
+			0,
+			SYSDATE
+		) 
+	</insert>
+	
+	<select id="selectAll" resultType="com.ja.finalproject.dto.FreeboardArticleDto">
+		SELECT t2.* FROM (
+			SELECT t1.*, ROWNUM rnum FROM(
+				
+				SELECT ffa.* 
+				FROM FP_FREEBOARD_ARTICLE ffa
+				<if test="searchType != null and searchType == 'nickname'">
+					INNER JOIN FP_USER fu ON fu.id = ffa.user_id
+				</if>
+				WHERE 1=1
+				<if test="searchType != null">
+					<choose>
+						<when test="searchType == 'title'">
+							AND ffa.title LIKE '%' || #{searchWord} || '%'		
+						</when>
+						<when test="searchType == 'content'">
+							AND ffa.content LIKE '%' || #{searchWord} || '%'
+						</when>
+						<when test="searchType == 'nickname'">
+							AND fu.nickname LIKE '%' || #{searchWord} || '%'		
+						</when>
+					</choose>
+				
+				</if>
+				
+				
+				
+				ORDER BY ffa.ID DESC
+			)t1
+		)t2
+		<![CDATA[		
+		WHERE t2.rnum >= (#{pageNum}-1)*10+1 AND t2.rnum <= #{pageNum}*10
+		]]>
+	</select>	
+	
+	<select id="selectById" resultType="com.ja.finalproject.dto.FreeboardArticleDto">
+		SELECT * FROM FP_FREEBOARD_ARTICLE WHERE id = #{id}	
+	</select>
+	
+	<update id="increaseReadCount">
+		UPDATE FP_FREEBOARD_ARTICLE 
+		SET READ_COUNT = READ_COUNT + 1
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM FP_FREEBOARD_ARTICLE WHERE id = #{id}
+	</delete>
+	
+	<update id="update">
+		UPDATE FP_FREEBOARD_ARTICLE 
+		SET title = #{title}, content = #{content}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<select id="count" resultType="int">
+	
+		SELECT COUNT(*) 
+		FROM FP_FREEBOARD_ARTICLE ffa
+		<if test="searchType != null and searchType == 'nickname'">
+			INNER JOIN FP_USER fu ON fu.id = ffa.user_id
+		</if>
+		WHERE 1=1
+		<if test="searchType != null">
+			<choose>
+				<when test="searchType == 'title'">
+					AND ffa.title LIKE '%' || #{searchWord} || '%'		
+				</when>
+				<when test="searchType == 'content'">
+					AND ffa.content LIKE '%' || #{searchWord} || '%'
+				</when>
+				<when test="searchType == 'nickname'">
+					AND fu.nickname LIKE '%' || #{searchWord} || '%'		
+				</when>
+			</choose>
+		
+		</if>	
+	</select>
+	
+	<!-- 이미지 관련 -->
+	<insert id="insertImage">
+		INSERT INTO fp_article_image VALUES(
+			fp_article_image_seq.nextval,
+			#{article_id},
+			#{location},
+			#{original_filename},
+			SYSDATE
+		)
+	</insert>
+
+	<select id="getArticleImageListByArticleId" resultType="com.ja.finalproject.dto.ArticleImageDto">
+		SELECT * FROM FP_ARTICLE_IMAGE fai 
+		WHERE fai.article_id = #{article_id}
+		ORDER BY fai.id ASC
+	</select>
+	
+	
+	<!-- 좋아요 -->
+	<insert id="insertLike">
+		INSERT INTO fp_article_like VALUES(
+			fp_article_like_seq.nextval,
+			#{user_id},
+			#{article_id},
+			SYSDATE
+		)	
+	</insert>
+	
+	<delete id="deleteLike">
+		DELETE FROM fp_article_like 
+		WHERE user_id = #{user_id} 
+		AND article_id = #{article_id}		
+	</delete>
+	
+	<select id="countLikeTotal" resultType="int">
+		SELECT COUNT(*) FROM fp_article_like 
+		WHERE article_id = #{article_id}
+	</select>
+	
+	<select id="countMyLike" resultType="int">
+		SELECT COUNT(*) FROM fp_article_like 
+		WHERE user_id = #{user_id} 
+		AND article_id = #{article_id}	
+	</select>
+	
+	<!-- 댓글 -->
+	
+	<insert id="insertComment">
+		INSERT INTO fp_freeboard_comment VALUES(
+			fp_freeboard_comment_seq.nextval,
+			#{article_id},
+			#{user_id},
+			#{text},
+			SYSDATE
+		)	
+	</insert>
+	
+	<select id="selectCommentListByArticleId" 
+		resultType="com.ja.finalproject.dto.CommentDto">
+	
+		SELECT * FROM fp_freeboard_comment 
+		WHERE article_id = #{article_id}
+		ORDER BY id ASC		
+	
+	</select>
+	
+	<delete id="deleteCommentById">
+		DELETE FROM fp_freeboard_comment WHERE id = #{id}
+	</delete>
+	
+	<update id="updateComment">
+		UPDATE fp_freeboard_comment SET text = #{text}
+		WHERE id = #{id}		
+	</update>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
