@@ -118,7 +118,27 @@
 		ORDER BY fai.id ASC
 	</select>
 	
-	
+	<!-- 댓글 -->
+	<insert id="insertComment">
+		INSERT INTO FP_FREEBOARD_COMMENT VALUES(
+			FP_FREEBOARD_COMMENT_seq.nextval,
+			#{article_id},
+			#{user_id},
+			#{text},
+			SYSDATE
+		) 
+	</insert>
+	<select id="selectCommentListByArticleId" resultType="com.ja.finalproject.dto.CommentDto">
+		SELECT * FROM FP_FREEBOARD_COMMENT 
+		WHERE article_id = #{article_id}
+		ORDER BY id ASC
+	</select>
+	<delete id="deleteCommentById">
+		DELETE FROM FP_FREEBOARD_COMMENT WHERE id = #{id}
+	</delete>
+	<update id="updateComment">
+		UPDATE FP_FREEBOARD_COMMENT SET text = #{text}WHERE id = #{id}
+	</update>
 	
 </mapper>
 

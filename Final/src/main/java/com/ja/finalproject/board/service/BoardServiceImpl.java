@@ -21,6 +21,7 @@ public class BoardServiceImpl {
 
 	@Autowired
 	private BoardSqlMapper boardSqlMapper; 
+	
 	@Autowired
 	private UserSqlMapper userSqlMapper; 
 	
