@@ -8,7 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ja.finalproject.board.mapper.BoardSqlMapper;
+import com.ja.finalproject.admin.mapper.AdminSqlMapper;
 import com.ja.finalproject.dto.FreeboardArticleDto;
 import com.ja.finalproject.dto.UserDto;
 import com.ja.finalproject.user.mapper.UserSqlMapper;
@@ -17,12 +17,12 @@ import com.ja.finalproject.user.mapper.UserSqlMapper;
 public class BoardServiceImpl {
 
 	@Autowired
-	private BoardSqlMapper boardSqlMapper; 
+	private AdminSqlMapper adminSqlMapper; 
 	@Autowired
 	private UserSqlMapper userSqlMapper; 
 	
 	public void writeArticle(FreeboardArticleDto freeboardArticleDto) {
-		boardSqlMapper.insert(freeboardArticleDto);
+		adminSqlMapper.insertshop(freeboardArticleDto);
 	}
 	
 	public List<Map<String,Object>> getArticleList() {
@@ -30,7 +30,7 @@ public class BoardServiceImpl {
 		List<Map<String,Object>> list = new ArrayList<>();
 		
 		List<FreeboardArticleDto> articleDtolist = 
-				boardSqlMapper.selectAll();
+				adminSqlMapper.selectAll();
 		
 		for(FreeboardArticleDto freeboardArticleDto : articleDtolist) {
 			int userPk = freeboardArticleDto.getUser_id();
@@ -50,7 +50,7 @@ public class BoardServiceImpl {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		FreeboardArticleDto articleDto = boardSqlMapper.selectById(articleId);
+		FreeboardArticleDto articleDto = adminSqlMapper.selectshopById(articleId);
 		int userPk = articleDto.getUser_id();
 		UserDto userDto = userSqlMapper.selectById(userPk);
 		
@@ -62,15 +62,15 @@ public class BoardServiceImpl {
 	}
 	
 	public void increaseReadCount(int articleId) {
-		boardSqlMapper.increaseReadCount(articleId);
+		adminSqlMapper.increaseReadCount(articleId);
 	}
 	
 	public void deleteArticle(int articleId) {
-		boardSqlMapper.delete(articleId);
+		adminSqlMapper.delete(articleId);
 	}
 	
 	public void updateArticle(FreeboardArticleDto freeboardArticleDto) {
-		boardSqlMapper.update(freeboardArticleDto);
+		adminSqlMapper.update(freeboardArticleDto);
 	}
 	
 }

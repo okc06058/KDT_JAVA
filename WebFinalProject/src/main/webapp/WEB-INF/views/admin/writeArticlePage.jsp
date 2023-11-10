@@ -1,5 +1,7 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,9 +33,15 @@
 							<textarea name="content" rows="10" cols="60"></textarea>
 							가격: <input name="price" type="int"><br> 사진 등록: <input
 								name="imageFiles" type="file" accept="image/*" multiple>
-							<br> 총 판매 수량: <input name="totalcount" type="int"><br>
+							<br> 카테고리 선택:
+							<div class="col mt-2 mb-1">
+							<c:forEach items="${categoryList}" var="category">
+								<input name="category" value="${category.id}" type="checkbox">&nbsp${category.name}&nbsp&nbsp
+							</c:forEach><br> 
+							</div>
+							총 판매 수량: <input name="total_count" type="int"><br>
 							<button type="submit" class="btn btn-primary">글 작성</button>
-							<br><br><br>
+							<br> <br>
 						</div>
 					</div>
 				</form>

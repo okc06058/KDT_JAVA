@@ -1,5 +1,6 @@
 package com.ja.finalproject.admin.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -8,10 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ja.finalproject.admin.mapper.AdminSqlMapper;
 import com.ja.finalproject.admin.service.AdminServiceImpl;
-import com.ja.finalproject.board.mapper.BoardSqlMapper;
+import com.ja.finalproject.board.service.BoardServiceImpl;
 import com.ja.finalproject.dto.AdminDto;
 import com.ja.finalproject.dto.FreeboardArticleDto;
 import com.ja.finalproject.dto.UserDto;
@@ -27,8 +29,13 @@ public class AdminController {
 	@Autowired
 	private AdminSqlMapper adminSqlMapper; 
 	
+	@Autowired
+	private BoardServiceImpl boardService; 
+	
 	@RequestMapping("adminMainPage")
 	public String adminMainPage() {
+		
+		//model.addAttribute("ShopSertchList",adminSerivce.getShopList(params.getUser_id()));
 		
 		return "admin/adminMainPage";
 	}
@@ -48,11 +55,7 @@ public class AdminController {
 	
 	@RequestMapping("adminRegisterProcess")
 	public String adminRegisterProcess(AdminDto params) {
-		
-		System.out.println("adminRegisterProcess - 실행됨!");
-		System.out.println(params.getUserid());
-		System.out.println(params.getPassword());
-		
+
 		adminSerivce.register(params);
 		
 		return "redirect:./adminLoginPage";
@@ -81,7 +84,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping("writeArticlePage")
-	public String writeArticlePage() {
+	public String writeArticlePage(Model model) {
+		
+		model.addAttribute("categoryList",adminSerivce.getCategoryList());
 		
 		return "admin/writeArticlePage";
 	}
@@ -103,9 +108,9 @@ public class AdminController {
 	@RequestMapping("readArticlePage")
 	public String readArticlePage(Model model, int id) {
 		
-		adminSerivce.increaseReadCount(id);
+		boardService.increaseReadCount(id);
 		
-		Map<String, Object> map = adminSerivce.getArticle(id);
+		Map<String, Object> map = boardService.getArticle(id);
 		
 		model.addAttribute("qwer", map);		
 		
@@ -122,10 +127,7 @@ public class AdminController {
 	
 	@RequestMapping("updateArticlePage")
 	public String updateArticlePage(Model model, int id) {
-		
-//		Map<String, Object> map = boardService.getArticle(id);
-//		model.addAttribute("qwer", map);
-		
+	
 		model.addAttribute("qwer", boardService.getArticle(id));		
 		
 		return "board/updateArticlePage";
@@ -139,5 +141,5 @@ public class AdminController {
 		return "redirect:./readArticlePage?id=" + params.getId();
 	}
 	
-	
+
 }

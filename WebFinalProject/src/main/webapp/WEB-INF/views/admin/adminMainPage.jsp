@@ -19,7 +19,7 @@
 				<jsp:include page="../commons/adtopNavi.jsp"></jsp:include>
 			</div>
 		</div>
-		
+
 		<div class="row mt-3">
 			<!-- 검색 -->
 			<div class="col-2">
@@ -36,11 +36,13 @@
 				<button class="btn btn-primary">검색</button>
 			</div>
 			<div class="col-2 d-grid">
-				<button onclick="location.href='writeArticlePage'"class="btn btn-primary"> &nbsp&nbsp&nbsp&nbsp> 상품 등록하기&nbsp&nbsp&nbsp&nbsp</button>
-					
+				<button onclick="location.href='writeArticlePage'"
+					class="btn btn-primary">&nbsp&nbsp&nbsp&nbsp> 상품
+					등록하기&nbsp&nbsp&nbsp&nbsp</button>
+
 			</div>
 		</div>
-		
+
 		<div id="carouselExample" class="carousel slide mt-3">
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner">
@@ -66,7 +68,7 @@
 			</button>
 
 		</div>
-		
+
 		<div class="row mt-2">
 			<!-- 테이블 -->
 			<div class="col">
@@ -82,7 +84,8 @@
 						</tr>
 					</thead>
 					<tbody>
-
+					
+						
 					</tbody>
 				</table>
 			</div>

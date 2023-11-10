@@ -5,7 +5,7 @@ import java.util.Date;
 public class FreeboardArticleDto {
 
 	private int id;
-	private int categori;
+	private int category;
 	private int user_id;
 	private String titlename;
 	private String content;
@@ -17,11 +17,11 @@ public class FreeboardArticleDto {
 		super();
 	}
 
-	public FreeboardArticleDto(int id, int categori, int user_id, String titlename, String content, int price,
+	public FreeboardArticleDto(int id, int category, int user_id, String titlename, String content, int price,
 			int total_count, Date created_at) {
 		super();
 		this.id = id;
-		this.categori = categori;
+		this.category = category;
 		this.user_id = user_id;
 		this.titlename = titlename;
 		this.content = content;
@@ -38,12 +38,12 @@ public class FreeboardArticleDto {
 		this.id = id;
 	}
 
-	public int getCategori() {
-		return categori;
+	public int getCategory() {
+		return category;
 	}
 
-	public void setCategori(int categori) {
-		this.categori = categori;
+	public void setCategory(int category) {
+		this.category = category;
 	}
 
 	public int getUser_id() {
