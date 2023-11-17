@@ -19,7 +19,7 @@
 		<div class="row mt-5">
 			<div class="col"></div>
 			<div class="col-6">
-				<form action="./adminLoginProcess" method="post">
+				<form action="./adminLoginProcess" method="get">
 				<div class="row mt-5">
 					<div class="col fw-bold fs-1 text-center">로그인(판매자)</div>
 				</div>

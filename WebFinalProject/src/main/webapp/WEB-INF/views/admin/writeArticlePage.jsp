@@ -23,7 +23,7 @@
 
 		<div class="row mt-1">
 			<div class="col center">
-				<form action="./writeArticleProcess" method="post">
+				<form action="./writeArticleProcess" method="post" enctype="multipart/form-data">
 					<div class="row mt-5">
 						<div class="col fw-bold fs-1 text-center">상품 등록하기</div>
 					</div>
@@ -31,15 +31,15 @@
 						<div class="col d-grid">
 							물품명: <input name="titlename" type="text"><br> 상세 설명:
 							<textarea name="content" rows="10" cols="60"></textarea>
-							가격: <input name="price" type="int"><br> 사진 등록: <input
-								name="imageFiles" type="file" accept="image/*" multiple>
+							가격: <input name="price" type="number"><br> 
+							사진 등록: <input name="imageFiles" type="file" accept="image/*" multiple>
 							<br> 카테고리 선택:
 							<div class="col mt-2 mb-1">
 							<c:forEach items="${categoryList}" var="category">
 								<input name="category" value="${category.id}" type="checkbox">&nbsp${category.name}&nbsp&nbsp
 							</c:forEach><br> 
 							</div>
-							총 판매 수량: <input name="total_count" type="int"><br>
+							총 판매 수량: <input name="total_count" type="number"><br>
 							<button type="submit" class="btn btn-primary">글 작성</button>
 							<br> <br>
 						</div>

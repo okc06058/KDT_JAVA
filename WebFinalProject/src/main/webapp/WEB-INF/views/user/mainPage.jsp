@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <!DOCTYPE html>
@@ -19,10 +18,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<jsp:include page="../commons/adtopNavi.jsp"></jsp:include>
+				<jsp:include page="../commons/topNavi.jsp"></jsp:include>
 			</div>
 		</div>
-
 		<div class="row mt-3">
 			<!-- 검색 -->
 			<div class="col-2">
@@ -32,17 +30,11 @@
 					<option>공예</option>
 				</select>
 			</div>
-			<div class="col-6">
+			<div class="col-8">
 				<input type="text" class="form-control">
 			</div>
 			<div class="col-2 d-grid">
 				<button class="btn btn-primary">검색</button>
-			</div>
-			<div class="col-2 d-grid">
-				<button onclick="location.href='writeArticlePage'"
-					class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;> 상품
-					등록하기&nbsp;&nbsp;&nbsp;&nbsp;</button>
-
 			</div>
 		</div>
 
@@ -50,16 +42,16 @@
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<img src="../resources/ad_img/11day.jpg" class="d-block w-100" >
+					<img src="../resources/wf_img/11day.jpg" class="d-block w-100" >
 				</div>
 				<div class="carousel-item ">
-					<img src="../resources/ad_img/adfasd.png" class="d-block w-100" >
+					<img src="../resources/wf_img/adfasd.png" class="d-block w-100" >
 				</div>
 				<div class="carousel-item ">
-					<img src="../resources/ad_img/bagmain.jpg" class="d-block w-100" >
+					<img src="../resources/wf_img/bagmain.jpg" class="d-block w-100" >
 				</div>
 				<div class="carousel-item ">
-					<img src="../resources/ad_img/catimg.jpg" class="d-block w-100" >
+					<img src="../resources/wf_img/catimg.jpg" class="d-block w-100" >
 				</div>
 			</div>
 
@@ -76,27 +68,22 @@
 			</button>
 
 		</div>
-
+		
+		<div class="row mt-2 pt-2">
+			<div class="col">전체 작품</div>
+		</div>
+		
 		<div class="row mt-2">
 			<!-- 테이블 -->
 			<div class="col">
 				<table class="table table-striped table-hover">
-					<thead>
-						<tr>
-							<th scope="col">상품번호</th>
-							<th scope="col">물품제목</th>
-							<th scope="col">상세설명</th>
-							<th scope="col">가격</th>
-							<th scope="col">총판매수량</th>
-							<th scope="col">등록일</th>
-						</tr>
-					</thead>
+					<thead></thead>
 					<tbody>
 						
-						<c:forEach items="${ShopSearchList}" var="map">
+						<c:forEach items="${ShopList}" var="map">
 							<tr>
 								<th scope="row">${map.id}</th>
-								<td><a href="./readArticlePage?id=${map.id}">${map.titlename}</td>
+								<td><a href="./readUserArticlePage?id=${map.id}">${map.titlename}</td>
 								<td>${map.content}</td>
 								<td>${map.price}</td>
 								<td>${map.total_count}</td>
@@ -110,6 +97,7 @@
 				</table>
 			</div>
 		</div>
+		
 	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

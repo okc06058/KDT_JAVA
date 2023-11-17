@@ -15,6 +15,7 @@ import com.ja.finalproject.dto.AdminDto;
 import com.ja.finalproject.dto.ArticleImageDto;
 import com.ja.finalproject.dto.CategoryDto;
 import com.ja.finalproject.dto.FreeboardArticleDto;
+import com.ja.finalproject.dto.UserDto;
 
 @Service
 public class AdminServiceImpl {
@@ -48,18 +49,18 @@ public class AdminServiceImpl {
 	}
 
 	// 이미지 처리
-	public void writeArticle(FreeboardArticleDto freeboardArticleDto, List<ArticleImageDto> articleImageDtoList) {
+		public void writeArticle(FreeboardArticleDto freeboardArticleDto, List<ArticleImageDto> articleImageDtoList) {
 
-		int articlePk = adminSqlMapper.createArticlePk();
+			int articlePk = adminSqlMapper.createArticlePk();
+			System.out.println(articlePk);			
+			freeboardArticleDto.setId(articlePk);
+			adminSqlMapper.insertshop(freeboardArticleDto);
 
-		freeboardArticleDto.setId(articlePk);
-		adminSqlMapper.insert(freeboardArticleDto);
-
-		for (ArticleImageDto articleImageDto : articleImageDtoList) {
-			articleImageDto.setArticle_id(articlePk);
-			adminSqlMapper.insertImage(articleImageDto);
+			for (ArticleImageDto articleImageDto : articleImageDtoList) {
+				articleImageDto.setArticle_id(articlePk);
+				adminSqlMapper.insertImage(articleImageDto);
+			}
 		}
-	}
 
 	public List<Map<String, Object>> getArticleList(int pageNum, String searchType, String searchWord) {
 
@@ -85,27 +86,25 @@ public class AdminServiceImpl {
 		return adminSqlMapper.count(searchType, searchWord);
 	}
 
-	public Map<String, Object> getArticle(int articleId) {
-
-		Map<String, Object> map = new HashMap<>();
-
-		FreeboardArticleDto articleDto = adminSqlMapper.selectshopById(articleId);
-		int userPk = articleDto.getId();
-		FreeboardArticleDto adminDto = adminSqlMapper.selectshopById(userPk);
-
-		List<ArticleImageDto> articleImageDtoList = adminSqlMapper.getArticleImageListByArticleId(articleId);
-
-		// html escape
-		String content = articleDto.getContent();
-		content = StringEscapeUtils.escapeHtml4(content);
-		content = content.replaceAll("\n", "<br>");
-		articleDto.setContent(content);
-
-		map.put("freeboardArticleDto", articleDto);
-		map.put("adminDto", adminDto);
-		map.put("articleImageDtoList", articleImageDtoList);
-
-		return map;
-
+	public List<Map<String, Object>> getArticle(int id){
+		List<Map<String, Object>> mapList = new ArrayList<>();
+		
+	//	int id = params.getUser_id();
+		List<FreeboardArticleDto> freeboardArticleDtoList = 
+				adminSqlMapper.selectShopListAll(id);
+		
+		for(FreeboardArticleDto pa : freeboardArticleDtoList) {
+			FreeboardArticleDto freeboardArticleDto = adminSqlMapper.selectshopById(pa.getId());
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("freeboardArticleDto", freeboardArticleDto);
+			//map.put("adminDto", adminDto);
+			mapList.add(map);
+		}		
+		
+		return mapList;
 	}
+
+	
+	
 }

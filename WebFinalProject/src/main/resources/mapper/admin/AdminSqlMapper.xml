@@ -23,17 +23,20 @@
 
 	<select id="selectById"
 		resultType="com.ja.finalproject.dto.AdminDto">
-		SELECT * FROM ad_USER WHERE userid = #{userid}
+		SELECT * FROM ad_USER WHERE id = #{id}
 	</select>
 	
 	<!-- 카테고리 쿼리 -->
 	<select id="selectCategoryAll" resultType="com.ja.finalproject.dto.CategoryDto">
-		SELECT fhc.* FROM FP_CATEGORY fhc 
+		SELECT fhc.* FROM fp_CATEGORY fhc 
 		ORDER BY fhc.id ASC		
 	</select>
 	
+	<select id="createArticlePk" resultType="int">
+		SELECT fp_FREEBOARD_ARTICLE_SEQ.nextval FROM Dual
+	</select>
 	
-
+	
 </mapper>
 
 

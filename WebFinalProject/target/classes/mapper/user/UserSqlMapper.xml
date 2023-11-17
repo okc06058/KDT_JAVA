@@ -26,6 +26,27 @@
 		resultType="com.ja.finalproject.dto.UserDto">
 		SELECT * FROM wf_USER WHERE id = #{id}
 	</select>
+	
+	<insert id="insertAdress">
+		INSERT INTO wf_addadress VALUES(
+			wf_addadress_seq.nextval,
+			#{user_id},
+			#{adress_name},
+			#{adress},
+			#{phone_number},
+			SYSDATE
+		)
+	</insert>
+	
+	<select id="selectAdressId"
+		resultType="com.ja.finalproject.dto.UserAdressDto">
+		SELECT * FROM wf_addadress WHERE user_id = #{user_id}
+	</select>
+
+	
+	<delete id="deleteAdressId">
+		DELETE FROM WF_ADDADRESS WHERE id = #{id}
+	</delete>
 
 </mapper>
 

@@ -16,9 +16,9 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item"><a href="../board/mainPage"
+						<li class="nav-item"><a href="../user/mainPage"
 							class="nav-link active" aria-current="page" href="#">쇼핑몰(구매자)</a></li>
-						<li class="nav-item"><a href="../board/mainPage" class="nav-link" href="#">Shop</a></li>
+						<li class="nav-item"><a href="../user/mainPage" class="nav-link" href="#">Shop</a></li>
 						</li>
 
 						<c:choose>
@@ -28,7 +28,7 @@
 									data-bs-toggle="dropdown" aria-expanded="false">
 										${sessionUserInfo.nickname } </a>
 									<ul class="dropdown-menu">
-										<li><a class="dropdown-item" href="#">마이페이지</a></li>
+										<li><a href="../user/myPage" class="dropdown-item" href="#">마이페이지</a></li>
 										<li><a class="dropdown-item" href="#">Another action</a></li>
 										<li><hr class="dropdown-divider"></li>
 										<li><a href="../user/logoutProcess"

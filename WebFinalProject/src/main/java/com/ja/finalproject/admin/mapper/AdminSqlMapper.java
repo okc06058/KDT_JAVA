@@ -23,7 +23,7 @@ public interface AdminSqlMapper {
 	public void insertshop(FreeboardArticleDto ouiefhiwfh);	
 	public List<FreeboardArticleDto> selectAll();
 	public FreeboardArticleDto selectshopById(int id);
-	public void increaseReadCount(int id);
+	public void decreaseTotalCount(int id);
 	public void delete(int id);
 	public void update(FreeboardArticleDto freeboardArticleDto);
 	
@@ -39,8 +39,11 @@ public interface AdminSqlMapper {
 	
 	public int createArticlePk();
 	
-	public void insert(FreeboardArticleDto ouiefhiwfh);
+	public void insertByFree(FreeboardArticleDto ouiefhiwfh);
 	public int count(String searchType, String searchWord);
+
+	
+	
 	
 
 }	

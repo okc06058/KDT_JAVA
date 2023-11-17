@@ -19,10 +19,16 @@
 	<select id="selectAll" resultType="com.ja.finalproject.dto.FreeboardArticleDto">
 		SELECT * FROM ad_FREEBOARD_ARTICLE ORDER BY id DESC
 	</select>	
-	
+
 	<select id="selectshopById" resultType="com.ja.finalproject.dto.FreeboardArticleDto">
 		SELECT * FROM ad_FREEBOARD_ARTICLE WHERE id = #{id}	
 	</select>
+	
+	<update id="increaseReadCount">
+		UPDATE ad_FREEBOARD_ARTICLE 
+		SET READ_COUNT = READ_COUNT + 1
+		WHERE id = #{id}
+	</update>
 	
 	<update id="decreaseTotalCount">
 		UPDATE ad_FREEBOARD_ARTICLE 
@@ -42,9 +48,25 @@
 	
 	<!-- 샵 등록 물품 검색 쿼리 -->
 	<select id="selectShopListAll" resultType="com.ja.finalproject.dto.FreeboardArticleDto">
-		SELECT * FROM AD_FREEBOARD_ARTICLE WHERE userid = #{userid}
+		SELECT * FROM AD_FREEBOARD_ARTICLE WHERE user_id = #{user_id}
 	</select>
 	
+	<!-- 이미지 관련 -->
+	<insert id="insertImage">
+		INSERT INTO AD_article_image VALUES(
+			ad_article_image_seq.nextval,
+			#{article_id},
+			#{location},
+			#{original_filename},
+			SYSDATE
+		)
+	</insert>
+
+	<select id="getArticleImageListByArticleId" resultType="com.ja.finalproject.dto.ArticleImageDto">
+		SELECT * FROM AD_ARTICLE_IMAGE fai 
+		WHERE fai.article_id = #{article_id}
+		ORDER BY fai.id ASC
+	</select>
 </mapper>
 
 

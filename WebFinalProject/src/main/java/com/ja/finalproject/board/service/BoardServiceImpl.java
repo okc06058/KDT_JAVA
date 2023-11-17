@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ja.finalproject.admin.mapper.AdminSqlMapper;
+import com.ja.finalproject.dto.AdminDto;
+import com.ja.finalproject.dto.ArticleImageDto;
 import com.ja.finalproject.dto.FreeboardArticleDto;
+import com.ja.finalproject.dto.UserAdressDto;
 import com.ja.finalproject.dto.UserDto;
 import com.ja.finalproject.user.mapper.UserSqlMapper;
 
@@ -21,7 +24,17 @@ public class BoardServiceImpl {
 	@Autowired
 	private UserSqlMapper userSqlMapper; 
 	
-	public void writeArticle(FreeboardArticleDto freeboardArticleDto) {
+	public void writeArticle(FreeboardArticleDto freeboardArticleDto, List<ArticleImageDto> articleImageDtoList) {
+		int articlePk = adminSqlMapper.createArticlePk();
+
+		freeboardArticleDto.setId(articlePk);
+		adminSqlMapper.insertshop(freeboardArticleDto);
+		System.out.println();
+		for(ArticleImageDto articleImageDto : articleImageDtoList) {
+			articleImageDto.setArticle_id(articlePk);
+			adminSqlMapper.insertImage(articleImageDto);
+		}
+		
 		adminSqlMapper.insertshop(freeboardArticleDto);
 	}
 	
@@ -46,23 +59,30 @@ public class BoardServiceImpl {
 		return list;
 	}
 	
+	
 	public Map<String, Object> getArticle(int articleId){
 		
 		Map<String, Object> map = new HashMap<>();
 		
 		FreeboardArticleDto articleDto = adminSqlMapper.selectshopById(articleId);
 		int userPk = articleDto.getUser_id();
-		UserDto userDto = userSqlMapper.selectById(userPk);
+		AdminDto adminDto = adminSqlMapper.selectById(userPk);
+		UserDto userDto = userSqlMapper.selectById(articleId);
+		
 		
 		map.put("freeboardArticleDto", articleDto);
+		map.put("adminDto", adminDto);
 		map.put("userDto", userDto);
+	//	map.put("articleImageDtoList", articleImageDtoList);
+		//map.put("AdminDto", adminDto);
 		
 		return map;
 		
 	}
 	
-	public void increaseReadCount(int articleId) {
-		adminSqlMapper.increaseReadCount(articleId);
+
+	public void decreaseTotalCount(int articleId) {
+		adminSqlMapper.decreaseTotalCount(articleId);
 	}
 	
 	public void deleteArticle(int articleId) {
@@ -72,6 +92,11 @@ public class BoardServiceImpl {
 	public void updateArticle(FreeboardArticleDto freeboardArticleDto) {
 		adminSqlMapper.update(freeboardArticleDto);
 	}
+
+	
+
+	
+	
 	
 }
 
